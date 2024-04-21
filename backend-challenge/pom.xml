@@ -16,6 +16,7 @@
         <quarkus.platform.version>3.9.4</quarkus.platform.version>
         <skipITs>true</skipITs>
         <surefire-plugin.version>3.2.5</surefire-plugin.version>
+        <junit-vintage-engine.version>5.9.3</junit-vintage-engine.version>
     </properties>
 
     <dependencyManagement>
@@ -88,6 +89,12 @@
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit-vintage-engine.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
