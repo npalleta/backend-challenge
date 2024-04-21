@@ -1,6 +1,5 @@
 package br.com.backend.challenge.business;
 
-import br.com.backend.challenge.business.PrimeNumber;
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
