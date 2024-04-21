@@ -13,7 +13,7 @@ public class RoleCheckerTest {
     private RoleChecker roleChecker;
 
     @BeforeEach
-    void RoleChecker() {
+    void BeforeEach() {
         this.roleChecker = new RoleChecker();
     }
 
@@ -30,7 +30,6 @@ public class RoleCheckerTest {
         Assertions.assertFalse(this.roleChecker.isValidRole(roles));
     }
 
-
     @Order(3)
     @ParameterizedTest
     @ValueSource(strings = {"Admin", "Member", "External"})
@@ -38,7 +37,6 @@ public class RoleCheckerTest {
         Assertions.assertTrue(this.roleChecker.isValidRole(roles));
     }
 
-    /* Changed 5 to 4 */
     @Order(4)
     @Test
     void shouldBeFalseIfStringEmpty() {
