@@ -13,7 +13,7 @@ public class PrimeNumberTest {
     private PrimeNumber primeNumber;
 
     @BeforeEach
-    void PrimeNumber() {
+    void BeforeEach() {
         this.primeNumber = new PrimeNumber();
     }
 
@@ -26,7 +26,10 @@ public class PrimeNumberTest {
     @Order(2)
     @Test
     void shouldBeNotAStringParameter() {
-        NumberFormatException thrown = Assertions.assertThrows(NumberFormatException.class, () -> primeNumber.isPrimeNumber(Integer.parseInt("Test")));
+        NumberFormatException thrown = Assertions.assertThrows(
+                NumberFormatException.class, () -> this.primeNumber.isPrimeNumber(Integer.parseInt("Test"))
+            );
+        //
         Assertions.assertEquals("For input string: \"Test\"", thrown.getMessage());
     }
 
@@ -34,7 +37,7 @@ public class PrimeNumberTest {
     @Test
     void shouldBeNotEqualsOne() {
         ArithmeticException thrown = Assertions.assertThrows(
-            ArithmeticException.class, () -> primeNumber.isPrimeNumber(1)
+            ArithmeticException.class, () -> this.primeNumber.isPrimeNumber(1)
         );
         Assertions.assertEquals("It's Wrong! This is a negative number, zero or one!", thrown.getMessage());
     }
@@ -43,7 +46,7 @@ public class PrimeNumberTest {
     @Test
     void shouldBeNotEqualsZero() {
         ArithmeticException thrown = Assertions.assertThrows(
-            ArithmeticException.class, () -> primeNumber.isPrimeNumber(-1)
+            ArithmeticException.class, () -> this.primeNumber.isPrimeNumber(-1)
         );
         Assertions.assertEquals("It's Wrong! This is a negative number, zero or one!", thrown.getMessage());
     }
@@ -52,7 +55,7 @@ public class PrimeNumberTest {
     @Test
     void shouldBeNotLessThanOne() {
         ArithmeticException thrown = Assertions.assertThrows(
-            ArithmeticException.class, () -> primeNumber.isPrimeNumber(0)
+            ArithmeticException.class, () -> this.primeNumber.isPrimeNumber(0)
         );
         Assertions.assertEquals("It's Wrong! This is a negative number, zero or one!", thrown.getMessage());
     }
@@ -61,7 +64,7 @@ public class PrimeNumberTest {
     @Test
     void shouldBeAPositiveNumber() {
         ArithmeticException thrown = Assertions.assertThrows(
-            ArithmeticException.class, () -> primeNumber.isPrimeNumber(-2)
+            ArithmeticException.class, () -> this.primeNumber.isPrimeNumber(-2)
         );
         Assertions.assertEquals("It's Wrong! This is a negative number, zero or one!", thrown.getMessage());
     }
@@ -70,13 +73,13 @@ public class PrimeNumberTest {
     @ParameterizedTest
     @ValueSource(ints = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97})
     void shouldBeDivisibleByItselfAndByOne(int number) {
-        Assertions.assertTrue(primeNumber.isPrimeNumber(number));
+        Assertions.assertTrue(this.primeNumber.isPrimeNumber(number));
     }
 
     @Order(8)
     @ParameterizedTest
     @ValueSource(ints = {4, 6, 8, 10, 20, 25, 26, 30, 33, 34})
     void shouldBeDivisibleByItselfButNotDivisibleByOne(int number) {
-        Assertions.assertFalse(primeNumber.isPrimeNumber(number));
+        Assertions.assertFalse(this.primeNumber.isPrimeNumber(number));
     }
 }
