@@ -1,4 +1,4 @@
-package br.com.backend.challenge.business;
+package br.com.backend.challenge.commons;
 
 import java.util.stream.IntStream;
 

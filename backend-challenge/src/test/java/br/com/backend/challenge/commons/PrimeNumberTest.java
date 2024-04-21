@@ -1,4 +1,4 @@
-package br.com.backend.challenge.business;
+package br.com.backend.challenge.commons;
 
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.*;
