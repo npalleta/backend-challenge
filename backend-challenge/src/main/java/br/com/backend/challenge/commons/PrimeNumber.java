@@ -4,7 +4,7 @@ import java.util.stream.IntStream;
 
 public class PrimeNumber {
 
-    public boolean calculatePrimeNumber(int number) {
+    public boolean isPrimeNumber(int number) {
         //
         int $number = number;
         //
