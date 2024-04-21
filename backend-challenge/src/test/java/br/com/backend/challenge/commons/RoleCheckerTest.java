@@ -38,7 +38,8 @@ public class RoleCheckerTest {
         Assertions.assertTrue(this.roleChecker.isValidRole(roles));
     }
 
-    @Order(5)
+    /* Changed 5 to 4 */
+    @Order(4)
     @Test
     void shouldBeFalseIfStringEmpty() {
         Assertions.assertFalse(this.roleChecker.isValidRole(""));
