@@ -13,7 +13,7 @@ public class RoleChecker {
 
         return roles.stream()
             .filter(
-                roles -> !role.isEmpty() && !role.isBlank()
+                r -> !role.isEmpty() && !role.isBlank()
             )
             .anyMatch(role::equalsIgnoreCase);
         //
