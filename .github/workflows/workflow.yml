@@ -25,7 +25,9 @@ jobs:
       run: pwd
 
     - name: Go to the project folder
-      run: cd backend-challenge/
+      run: |
+        cd /home/runner/work/backend-challenge/backend-challenge
+        mvn clean
 
     - name: Print directory contents
       run: ls -l
