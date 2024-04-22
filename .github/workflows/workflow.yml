@@ -27,5 +27,8 @@ jobs:
     - name: Print directory contents
       run: ls -l
 
+    - name: Go to the project folder
+      run: cd backend-challenge/
+
     - name: Build with Maven
       run: mvn clean
