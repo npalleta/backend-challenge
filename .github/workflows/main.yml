@@ -21,6 +21,12 @@ jobs:
         java-version: '17'
         distribution: 'adopt'
 
+    - name: Print directory contents
+      run: ls -l
+
+    - name: Print content of pom.xml
+      run: cat pom.xml
+
     - name: Build with Maven
       run: mvn -B package --file pom.xml
 
