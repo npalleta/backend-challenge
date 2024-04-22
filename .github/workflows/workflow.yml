@@ -24,13 +24,5 @@ jobs:
     - name: Print the path of the project
       run: pwd
 
-    - name: Go to the project folder
-      run: |
-        cd /home/runner/work/backend-challenge/backend-challenge
-        mvn clean
-
-    - name: Print directory contents
-      run: ls -l
-
-    - name: Build with Maven
-      run: mvn clean
+    - name: Check Maven Version
+      run: mvn -version
