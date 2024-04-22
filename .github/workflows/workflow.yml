@@ -24,11 +24,11 @@ jobs:
     - name: Print the path of the project
       run: pwd
 
-    - name: Print directory contents
-      run: ls -l
-
     - name: Go to the project folder
       run: cd backend-challenge/
+
+    - name: Print directory contents
+      run: ls -l
 
     - name: Build with Maven
       run: mvn clean
