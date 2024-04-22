@@ -25,7 +25,9 @@ jobs:
       run: pwd
 
     - name: Clone the project
-      run: git clone https://github.com/npalleta/backend-challenge.git
+      run: |
+        rm -rf backend-challenge/
+        git clone https://github.com/npalleta/backend-challenge.git
 
     - name: Check Maven Version
       run: mvn -version
