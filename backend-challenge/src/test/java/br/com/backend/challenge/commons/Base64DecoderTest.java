@@ -1,8 +1,8 @@
 package br.com.backend.challenge.commons;
 
 import io.quarkus.test.junit.QuarkusTest;
-import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+import org.junit.jupiter.api.*;
 
 @TestMethodOrder(OrderAnnotation.class)
 @QuarkusTest
