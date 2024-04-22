@@ -10,13 +10,23 @@ public class Base64Decoder {
     private final String emptyPayload = "{\"Role\":\"\",\"Seed\":\"\",\"Name\":\"\"}";
 
     public String decodePayload(String encodedData) {
+        //
+        String payload = "";
+        //
         if (encodedData.isEmpty() && encodedData.isBlank()) {
             throw new ArrayIndexOutOfBoundsException(
-                String.format("ERROR:: Index out of bounds: encodedData: %s", 0)
+                String.format("ERROR::Index out of bounds: encodedData: %s", 0)
             );
         }
 
-        String payload = new String(Base64.getDecoder().decode(encodedData.split("\\.")[1]));
+        try {
+            payload = new String(Base64.getDecoder().decode(encodedData.split("\\.")[1]));
+        } catch (ArrayIndexOutOfBoundsException exception) {
+            throw new ArrayIndexOutOfBoundsException(
+                String.format("ERROR::Index out of bounds: encodedData: %s", 0)
+            );
+        }
+
         return isStringJsonValid(payload) ?
             new String(Base64.getDecoder().decode(encodedData.split("\\.")[1])) :
             emptyPayload;
@@ -27,7 +37,7 @@ public class Base64Decoder {
         try {
             if (!payload.isEmpty() && !payload.isBlank())
                 JsonParser.parseString(payload);
-        } catch (JsonSyntaxException e) {
+        } catch (JsonSyntaxException ex) {
             return false;
         }
         return true;
