@@ -21,14 +21,14 @@ jobs:
         java-version: '17'
         distribution: 'adopt'
 
-    - name: Print directory contents
-      run: ls -l
-
-    - name: Print content of pom.xml
+    - name: Print the path of the project
       run: pwd
 
     - name: Go to project folder
       run: cd /home/runner/work/backend-challenge/backend-challenge
+
+    - name: Print directory contents
+      run: ls -l
 
     - name: Build with Maven
       run: mvn -B package --file pom.xml
