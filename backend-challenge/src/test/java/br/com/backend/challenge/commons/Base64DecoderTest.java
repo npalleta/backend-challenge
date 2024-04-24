@@ -6,7 +6,7 @@ import org.junit.jupiter.api.*;
 
 @TestMethodOrder(OrderAnnotation.class)
 @QuarkusTest
-public class Base64DecoderTest {
+class Base64DecoderTest {
 
     private Base64Decoder base64Decoder;
 
