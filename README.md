@@ -1,128 +1,60 @@
-# Descrição
 
-Construa uma aplicação que exponha uma api web que recebe por parametros um JWT (string) e verifica se é valida conforme regras abaixo:
+# Challenge Itaú - Oportunidade para engenheiro de Qualidade
 
-- Deve ser um JWT válido
-- Deve conter apenas 3 claims (Name, Role e Seed)
-- A claim Name não pode ter carácter de números
-- A claim Role deve conter apenas 1 dos três valores (Admin, Member e External)
-- A claim Seed deve ser um número primo.
-- O tamanho máximo da claim Name é de 256 caracteres.
+Apresentando o resultado do Challenge realizado pelo Itaú.
 
-#  Definição
-Input: Um JWT (string).  
-Output: Um boolean indicando se a valido ou não.
+## 💻 Tecnologia utilizada
 
-Use a linguagem de programação que considera ter mais conhecimento.
+Para o desafio, foi utilizado a plataforma Java na versão 20, Quarkus para a criação da api, JUnit 5 para os testes unitários e RestAssured para os testes de integração.
 
-# Massa de teste 
+## 📋 Pré-requisitos
 
-### Caso 1:
-Entrada:
+- Java 20 ou superior;
+- Docker e Docker Compose;
+- Utilizar uma IDE com suporte à linguagem Java - Eclipse, IntelliJ ou Visual Studio Code.
+
+## 🏢 Estrutura do Projeto
+
+![App Screenshot](./documentations/images/estrutura-básica.png)
+
+- pasta commons - Estão algumas das classes que vão dar suporte as regras do desafio e serão utilizadas pela Service;
+- pasta controller - Onde ficará disponibilizada a chamada da api de validação do token JWT;
+- pasta service - Onde teremos as validações (regras);
+- pasta model - Um modelo simples com a propriedade token JWT.
+
+## 🚀 Realizando o Setup
+
+- O Projeto se encontra no diretório: **backend-challenge/backend-challenge**
+
+1. Clone o repositório;
+2. Execute o comando abaixo (Rodando os Testes):
+```bash
+mvn clean test ou ./mvnw test
 ```
-eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJTZWVkIjoiNzg0MSIsIk5hbWUiOiJUb25pbmhvIEFyYXVqbyJ9.QY05sIjtrcJnP533kQNk8QXcaleJ1Q01jWY_ZzIZuAg
+3. Execute o comando para iniciar a aplicação:
+```bash
+mvn clean && ./mvnw compile quarkus:dev
 ```
-Saida:
-```
-verdadeiro
-```
-Justificativa:
-Abrindo o JWT, as informações contidas atendem a descrição:
-```json
-{
-  "Role": "Admin",
-  "Seed": "7841",
-  "Name": "Toninho Araujo"
-}
-```
+4. O serviço roda na porta: 8082.
+5. Documentação das APIs: http://localhost:8082/q/swagger-ui/
 
-### Caso 2:
-Entrada:
-```
-eyJhbGciOiJzI1NiJ9.dfsdfsfryJSr2xrIjoiQWRtaW4iLCJTZrkIjoiNzg0MSIsIk5hbrUiOiJUb25pbmhvIEFyYXVqbyJ9.QY05fsdfsIjtrcJnP533kQNk8QXcaleJ1Q01jWY_ZzIZuAg
-```
-Saida:
-```
-falso
-```
-Justificativa:
-JWT invalido
+### Comandos úteis - Quarkus
 
-### Caso 3:
-Entrada:
+#### Gerar um executável:
+
+- No diretório principal do projeto, executar o comando:
+```bash
+./mvnw clean install -Dnative -DskipTests -DQuarkus.native.container-build=true
 ```
-eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiRXh0ZXJuYWwiLCJTZWVkIjoiODgwMzciLCJOYW1lIjoiTTRyaWEgT2xpdmlhIn0.6YD73XWZYQSSMDf6H0i3-kylz1-TY_Yt6h1cV2Ku-Qs
+- Ir para a pasta target/ e dentro dela executar o seguinte comando:
+```bash
+./backend-challenge-1.0.0-BETA-runner
 ```
-Saida:
+- Gerando uma imagem docker utilizando o Dockerfile.native do Quarkus. No diretório raiz, execute:
+```bash
+docker build -f src/main/docker/Dockerfile.native -t quarkus/backend-challenge .
 ```
-falso
+- Rode a aplicação no conteiner:
+```bash
+docker run -i --rm -p 8082:8082 quarkus/backend-challenge
 ```
-Justificativa:
-Abrindo o JWT, a Claim Name possui caracter de números
-```json
-{
-  "Role": "External",
-  "Seed": "72341",
-  "Name": "M4ria Olivia"
-}
-```
-
-### Caso 4:
-Entrada:
-```
-eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiTWVtYmVyIiwiT3JnIjoiQlIiLCJTZWVkIjoiMTQ2MjciLCJOYW1lIjoiVmFsZGlyIEFyYW5oYSJ9.cmrXV_Flm5mfdpfNUVopY_I2zeJUy4EZ4i3Fea98zvY
-```
-Saida:
-```
-falso
-```
-Justificativa:
-Abrindo o JWT, foi encontrado mais de 3 claims.
-```json
-{
-  "Role": "Member",
-  "Org": "BR",
-  "Seed": "14627",
-  "Name": "Valdir Aranha"
-}
-```
-## Pontos que daremos maior atenção
-
-- Testes de unidade / integração
-- Abstração, acoplamento, extensibilidade e coesão
-- Design de API
-- SOLID
-- Documentação da solução no *README* 
-- Commits realizados durante a construção
-- Observability (Logging/Tracing/Monitoring)
-
-## Demais Itens
-
-- Containerização da aplicação
-- Helm Chart em um cluster de Kubernetes/ECS/FARGATE
-- Repositório no GitHub.
-- Deploy Automatizado para Infra-Estrutura AWS
-- scripts ci/cd
-- coleções do Insomnia ou ferramentas para execução
-- Provisione uma infraestrutura na AWS com OpenTerraform
-- expor a api em algum provedor de cloud (aws, azure...)
-- Uso de Engenharia de Prompt.
-
-### Sobre a documentação
-
-Nesta etapa do processo seletivo queremos entender as decisões por trás do código, portanto é fundamental que o *README* tenha algumas informações referentes a sua solução.
-
-Algumas dicas do que esperamos ver são:
-
-- Instruções básicas de como executar o projeto;
-- Detalhes da descrição dos metodos
-- Caso algo não esteja claro e você precisou assumir alguma premissa, quais foram e o que te motivou a tomar essas decisões.
-
-## Como esperamos receber sua solução
-
-Esta etapa é eliminatória, e por isso esperamos que o código reflita essa importância.
-
-Se tiver algum imprevisto, dúvida ou problema, por favor entre em contato com a gente, estamos aqui para ajudar.
-
-Nos envie o *link de um repo público* com a sua solução
-

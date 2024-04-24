@@ -7,7 +7,7 @@ import java.util.Base64;
 
 public class Base64Decoder {
 
-    private final String emptyPayload = "{\"Role\":\"\",\"Seed\":\"\",\"Name\":\"\"}";
+    static final String EMPTY_PAYLOAD = "{\"Role\":\"\",\"Seed\":\"\",\"Name\":\"\"}";
 
     public String decodePayload(String encodedData) {
         //
@@ -15,7 +15,7 @@ public class Base64Decoder {
         //
         if (encodedData.isEmpty() && encodedData.isBlank()) {
             throw new ArrayIndexOutOfBoundsException(
-                String.format("ERROR::Index out of bounds: encodedData: %s", 0)
+                String.format("ERROR:: Index out of bounds: encodedData: %s", encodedData.length())
             );
         }
 
@@ -23,13 +23,13 @@ public class Base64Decoder {
             payload = new String(Base64.getDecoder().decode(encodedData.split("\\.")[1]));
         } catch (ArrayIndexOutOfBoundsException exception) {
             throw new ArrayIndexOutOfBoundsException(
-                String.format("ERROR::Index out of bounds: encodedData: %s", 0)
+                String.format("ERROR:: Index out of bounds: encodedData: %s", payload.length())
             );
         }
 
         return isStringJsonValid(payload) ?
             new String(Base64.getDecoder().decode(encodedData.split("\\.")[1])) :
-            emptyPayload;
+            EMPTY_PAYLOAD;
         //
     }
 

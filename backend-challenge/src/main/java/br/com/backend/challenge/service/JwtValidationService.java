@@ -9,8 +9,6 @@ import jakarta.enterprise.context.ApplicationScoped;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 
-import static java.lang.System.out;
-
 @ApplicationScoped
 public class JwtValidationService {
 
@@ -39,9 +37,5 @@ public class JwtValidationService {
 
     private boolean validateSeed(String seed) {
         return new PrimeNumber().isPrimeNumber(Integer.parseInt(seed));
-    }
-
-    public static void main(String[] args) {
-        out.print(new JwtValidationService().validateJwtPayload(new JwtPayloadToken()));
     }
 }
