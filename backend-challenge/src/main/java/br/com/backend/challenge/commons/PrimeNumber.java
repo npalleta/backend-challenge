@@ -6,19 +6,21 @@ public class PrimeNumber {
 
     public boolean isPrimeNumber(int number) {
         //
-        int $number = number;
+        int newNumber = number;
         //
         boolean checkPrimeNum = isGreaterThanOne(number);
-        number = $number / 2;
+        number = newNumber / 2;
         //
         if (checkPrimeNum || number <= 1)
-            return IntStream.rangeClosed(2, number).noneMatch(i -> $number % i == 0);
+            checkPrimeNum = IntStream.rangeClosed(2, number).noneMatch(i -> newNumber % i == 0);
         //
-        return true;
+        return checkPrimeNum;
     }
 
     private boolean isGreaterThanOne(int number) {
         if (number > 1) return true;
-        else throw new ArithmeticException("It's Wrong! This is a negative number, zero or one!");
+        else
+            throw new ArithmeticException("It's Wrong! This is a negative number, zero or one!");
+        //
     }
 }
