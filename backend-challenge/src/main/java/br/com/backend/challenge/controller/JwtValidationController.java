@@ -16,8 +16,12 @@ import org.eclipse.microprofile.openapi.annotations.Operation;
 @Path("/api/v1")
 public class JwtValidationController {
 
+    private final JwtValidationService jwtValidationService;
+
     @Inject
-    JwtValidationService validationService;
+    public JwtValidationController(JwtValidationService jwtValidationService) {
+        this.jwtValidationService = jwtValidationService;
+    }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -27,7 +31,7 @@ public class JwtValidationController {
         try {
             log.info("-- Validando um token JWT proprietário --");
             if (jwtPayloadToken != null) {
-                String decodedToken = validationService.validateJwtPayload(jwtPayloadToken);
+                String decodedToken = this.jwtValidationService.validateJwtPayload(jwtPayloadToken);
                 return Response.status(Response.Status.CREATED).entity(decodedToken).build();
             }
         } catch (IndexOutOfBoundsException ex) {
