@@ -26,6 +26,19 @@ public class JwtValidationService {
         //
     }
 
+    public String validateJwtPayload(String jwtPayloadToken) {
+        String decodedPayloadToken = new Base64Decoder().decodePayload(jwtPayloadToken);
+        //
+        Type mapType = new TypeToken<HashMap<String, String>>() {}.getType();
+        HashMap<String, String> decodedPayloadMap = new Gson().fromJson(decodedPayloadToken, mapType);
+        //
+        return decodedPayloadMap.size() < 4 &&
+                validateRole(decodedPayloadMap.get("Role")) &&
+                validateSeed(decodedPayloadMap.get("Seed")) &&
+                validateName(decodedPayloadMap.get("Name")) ? "verdadeiro" : "falso";
+        //
+    }
+
     private boolean validateName(String name) {
         boolean nameContainsDigit = new CharacterChecker().hasOnlyLettersAndSymbols(name);
         return nameContainsDigit && new StringSizeChecker().has256Characters(name);
