@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
     <groupId>br.com.backend.challenge</groupId>
     <artifactId>backend-challenge</artifactId>
     <version>1.0.0-BETA</version>
-
     <properties>
         <compiler-plugin.version>3.13.0</compiler-plugin.version>
+        <gson.version>2.10.1</gson.version>
+        <jacoco-maven.version>0.8.12</jacoco-maven.version>
+        <junit-vintage-engine.version>5.9.3</junit-vintage-engine.version>
+        <lombok.version>1.18.32</lombok.version>
         <maven.compiler.release>20</maven.compiler.release>
+        <pitest-junit5.version>1.2.1</pitest-junit5.version>
+        <pitest.version>1.16.0</pitest.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
         <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
         <quarkus.platform.version>3.9.4</quarkus.platform.version>
         <skipITs>true</skipITs>
+        <sonarqube-maven.version>3.11.0.3922</sonarqube-maven.version>
         <surefire-plugin.version>3.2.5</surefire-plugin.version>
-        <junit-vintage-engine.version>5.9.3</junit-vintage-engine.version>
-        <lombok.version>1.18.32</lombok.version>
-        <gson.version>2.10.1</gson.version>
-        <pitest.version>1.16.0</pitest.version>
-        <pitest-junit5.version>1.2.1</pitest-junit5.version>
     </properties>
-
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -41,7 +42,6 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
@@ -67,6 +67,7 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-jacoco</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>io.quarkiverse.cucumber</groupId>
@@ -122,8 +123,12 @@
             <artifactId>pitest-junit5-plugin</artifactId>
             <version>${pitest-junit5.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.sonarsource.scanner.maven</groupId>
+            <artifactId>sonar-maven-plugin</artifactId>
+            <version>${sonarqube-maven.version}</version>
+        </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
@@ -157,7 +162,6 @@
                 <configuration>
                     <systemPropertyVariables>
                         <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
-                        <!--suppress UnresolvedMavenProperty -->
                         <maven.home>${maven.home}</maven.home>
                     </systemPropertyVariables>
                     <includes>
@@ -173,7 +177,6 @@
                     <execution>
                         <goals>
                             <goal>integration-test</goal>
-                            <!-- <goal>verify</goal> -->
                         </goals>
                     </execution>
                 </executions>
@@ -182,7 +185,6 @@
                         <native.image.path>${project.build.directory}/${project.build.finalName}-runner
                         </native.image.path>
                         <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
-                        <!--suppress UnresolvedMavenProperty -->
                         <maven.home>${maven.home}</maven.home>
                     </systemPropertyVariables>
                 </configuration>
@@ -208,30 +210,50 @@
                     </dependency>
                 </dependencies>
                 <configuration>
-                    <targetClasses><!-- pacote com as classes principais. -->
+                    <targetClasses>
                         <param>br.com.backend.challenge.*</param>
                     </targetClasses>
                     <targetTests>
-                        <param>br.com.backend.challenge.*</param><!-- pacote com as classes de testes. -->
+                        <param>br.com.backend.challenge.*</param>
                     </targetTests>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco-maven.version}</version>
+                <executions>
+                    <execution>
+                        <id>default-prepare-agent-integration</id>
+                        <goals>
+                            <goal>prepare-agent-integration</goal>
+                        </goals>
+                        <configuration>
+                            <destFile>${project.build.directory}/jacoco-quarkus.exec</destFile>
+                            <append>true</append>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                        <configuration>
+                            <dataFile>${project.build.directory}/jacoco-quarkus.exec</dataFile>
+                            <outputDirectory>${project.build.directory}/jacoco-report</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
-
     <reporting>
         <plugins>
             <plugin>
                 <groupId>org.pitest</groupId>
                 <artifactId>pitest-maven</artifactId>
                 <version>${pitest.version}</version>
-                <configuration>
-                    <skip>false</skip>
-                    <reportsDirectory>${project.build.directory}/pit-reports</reportsDirectory>
-                    <timestampedReports>false</timestampedReports>
-                    <mutationThreshold>80</mutationThreshold>
-                    <coverageThreshold>80</coverageThreshold>
-                </configuration>
                 <reportSets>
                     <reportSet>
                         <reports>
@@ -239,10 +261,16 @@
                         </reports>
                     </reportSet>
                 </reportSets>
+                <configuration>
+                    <skip>false</skip>
+                    <reportsDirectory>${project.build.directory}/pit-reports</reportsDirectory>
+                    <timestampedReports>false</timestampedReports>
+                    <mutationThreshold>80</mutationThreshold>
+                    <coverageThreshold>80</coverageThreshold>
+                </configuration>
             </plugin>
         </plugins>
     </reporting>
-
     <profiles>
         <profile>
             <id>native</id>
