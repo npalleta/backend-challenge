@@ -8,9 +8,6 @@ public class RoleChecker {
 
     public boolean isValidRole(String role) {
 
-        /* if (checkRole) return true;
-        else throw new IllegalArgumentException("Role must be one of: Admin, Member, External"); */
-
         return roles.stream()
             .filter(
                 r -> !role.isEmpty() && !role.isBlank()
