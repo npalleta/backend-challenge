@@ -1,5 +1,5 @@
 
-# Challenge Itaú - Oportunidade para engenheiro de Qualidade
+# Challenge Itaú - Oportunidade para Engenheiro de Qualidade
 
 Apresentando o resultado do Challenge realizado pelo Itaú.
 
@@ -38,6 +38,12 @@ mvn clean && ./mvnw compile quarkus:dev
 4. O serviço roda na porta: 8082.
 5. Documentação das APIs: http://localhost:8082/q/swagger-ui/
 
+*SCREENSHOT*
+
+![Swagger-01 Screenshot](./documentations/images/swagger-01.png)
+
+![Swagger-01 Screenshot](./documentations/images/swagger-02.png)
+
 ### Comandos úteis - Quarkus
 
 #### Gerar um executável:
@@ -58,3 +64,19 @@ docker build -f src/main/docker/Dockerfile.native -t quarkus/backend-challenge .
 ```bash
 docker run -i --rm -p 8082:8082 quarkus/backend-challenge
 ```
+
+### Sonar
+
+Utilizei o SonarQube para a validação do código estático, junto ao **jacoco** e o **pitest**.
+Infelizmente, não consegui realizar o ajuste do code coverage a tempo. Mas, foi possível
+corrigir erros no código e ver a quantidade de unitários realizados.
+
+![Sonar Screenshot](./documentations/images/sonar-screenshot.png)
+
+![Sonar Unit Tests](./documentations/images/sonar-unit-tests.png)
+
+### Outros documentos
+
+[CHALLENGE](./documentations/CHALLENGE.md)
+
+[CHALLENGE-2](./challenge-2/login_access.feature)
