@@ -7,7 +7,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 @TestMethodOrder(OrderAnnotation.class)
-@QuarkusTest
+// @QuarkusTest
 class CharacterCheckerTest {
 
     private CharacterChecker characterChecker;

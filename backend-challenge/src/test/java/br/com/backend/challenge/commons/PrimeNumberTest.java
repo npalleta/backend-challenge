@@ -9,7 +9,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @TestMethodOrder(OrderAnnotation.class)
-@QuarkusTest
+// @QuarkusTest
 class PrimeNumberTest {
 
     private PrimeNumber primeNumber;

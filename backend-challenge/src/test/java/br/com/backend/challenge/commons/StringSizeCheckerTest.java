@@ -5,7 +5,7 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 
 @TestMethodOrder(OrderAnnotation.class)
-@QuarkusTest
+// @QuarkusTest
 class StringSizeCheckerTest {
 
     private StringSizeChecker stringSizeChecker;
