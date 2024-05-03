@@ -41,11 +41,11 @@ public class JwtValidationController {
             log.error("O JWT Web Token foi definido de forma inválida na requisição.");
         }
         return Response
-                .status(Response.Status.INTERNAL_SERVER_ERROR)
-                .entity("Verifique o corpo da requisição - token inválido ou inexistente.")
-                .status(Response.Status.BAD_REQUEST)
-                .entity("O JWT Web Token foi definido de forma inválida na requisição.")
-                .build();
+            .status(Response.Status.INTERNAL_SERVER_ERROR)
+            .entity("Verifique o corpo da requisição - token inválido ou inexistente.")
+            .status(Response.Status.BAD_REQUEST)
+            .entity("O JWT Web Token foi definido de forma inválida na requisição.")
+            .build();
         //
     }
 

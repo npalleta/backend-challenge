@@ -6,7 +6,7 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 
 @TestMethodOrder(OrderAnnotation.class)
-@QuarkusTest
+// @QuarkusTest
 class JwtPayloadServiceTest {
 
     private JwtValidationService jwtValidationService;

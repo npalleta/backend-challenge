@@ -33,9 +33,9 @@ public class JwtValidationService {
         HashMap<String, String> decodedPayloadMap = new Gson().fromJson(decodedPayloadToken, mapType);
         //
         return decodedPayloadMap.size() < 4 &&
-                validateRole(decodedPayloadMap.get("Role")) &&
-                validateSeed(decodedPayloadMap.get("Seed")) &&
-                validateName(decodedPayloadMap.get("Name")) ? "verdadeiro" : "falso";
+            validateRole(decodedPayloadMap.get("Role")) &&
+            validateSeed(decodedPayloadMap.get("Seed")) &&
+            validateName(decodedPayloadMap.get("Name")) ? "verdadeiro" : "falso";
         //
     }
 
